@@ -21,16 +21,55 @@ public class AD03_Ejer01 {
         myConnection miConexion = new myConnection();
 
         //**********************************************************************
-        String sql =        
-                "CREATE TABLE Alumnos ("
+        String sql
+                = "CREATE TABLE Alumnos ("
                 + "Codigo_Alumno int NOT NULL AUTO_INCREMENT,"
                 + "Nombre_Alumno varchar(255),"
                 + "NIF varchar(255),"
                 + "Telefono varchar(255),"
                 + "Correo_electronico varchar(255),"
                 + "PRIMARY KEY (Codigo_Alumno)"
-                + ");"
-                ;
+                + ");";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+
+        //**********************************************************************
+        sql
+                = "CREATE TABLE Cursos ("
+                + "Codigo_Curso int NOT NULL AUTO_INCREMENT,"
+                + "Nombre_Curso varchar(255),"
+                + "Titulo varchar(255),"
+                + "Descripcion varchar(255),"
+                + "Precio int,"
+                + "Fecha_Inicio TIMESTAMP,"
+                + "Fecha_Fin TIMESTAMP,"
+                + "PRIMARY KEY (Codigo_Curso)"
+                + ");";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+
+        //**********************************************************************
+        sql
+                = "CREATE TABLE Matriculas ("
+                + "Codigo_Curso int NOT NULL,"
+                + "Codigo_Alumno int NOT NULL,"
+                + "Fecha_Inscripcion TIMESTAMP,"
+                + "Pagado  TINYINT(1),"
+                + "Fecha_Pago TIMESTAMP,"
+                + "PRIMARY KEY (Codigo_Curso,Codigo_Alumno)"
+                + ");";
 
         try {
             miConexion.executeUpdate(sql);
