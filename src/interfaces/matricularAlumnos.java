@@ -11,8 +11,10 @@ import java.awt.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,7 @@ import javax.swing.JOptionPane;
 public class matricularAlumnos extends javax.swing.JFrame {
     
     ArrayList<String> cursosAmatricular = new ArrayList<String>();
+    int codigoAlumno;
 
     /**
      * Creates new form matricularAlumnos
@@ -83,6 +86,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btDesmatricular = new javax.swing.JButton();
         txtInfoNombre = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,7 +111,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
 
         jLabel1.setText("Alumno");
 
-        jLabel2.setText("Cursos");
+        jLabel2.setText("Cursos disponibles");
 
         jLabel3.setText("Cursos matriculados");
 
@@ -119,6 +123,8 @@ public class matricularAlumnos extends javax.swing.JFrame {
         });
 
         txtInfoNombre.setEditable(false);
+
+        jLabel4.setText("Nombre del alumno");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,11 +138,12 @@ public class matricularAlumnos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtInfoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(cbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(txtInfoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
@@ -158,7 +165,9 @@ public class matricularAlumnos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,7 +200,10 @@ public class matricularAlumnos extends javax.swing.JFrame {
         //cargamos los datos del usuario que elijamos en el combobox
         String NIF = this.cbAlumno.getSelectedItem().toString();
         Alumno alumno1 = obtenerDatosAlumno(NIF);
-
+        cursosAmatricular.clear();//reseteamos la lista de nuevas matriculaciones
+        codigoAlumno = alumno1.codAlumno;//fijamos el codigo de alumno del alumno elegido       
+        
+        
         //rellenamos el nombre del alumno seleccionado
         txtInfoNombre.setText(alumno1.Nombre);
 
@@ -248,25 +260,100 @@ public class matricularAlumnos extends javax.swing.JFrame {
     private void btDesmatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesmatricularActionPerformed
         
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
-        System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+        Date ahoraDate = new Date();
+        System.out.println(dateFormat.format(ahoraDate)); //2016/11/16 12:08:43
 
+        String cursoSeleccionado = lstCursosMatri.getSelectedValue();
+        
+        int codigoCurso = -1;
+        Date fechaInicioCurso = null;
+        Date fechaFinCurso = null;
+        int pagado = -1;
+        
+        //**********************************************************************
+        myConnection miConexion2 = new myConnection();
+
+        String sql = "SELECT Codigo_Curso, Fecha_Inicio, Fecha_Fin FROM acadamel.cursos WHERE Nombre_Curso = '" + cursoSeleccionado + "';";
+
+        try {
+            ResultSet rs = miConexion2.executeSelect(sql);
+
+            
+            while (rs.next()) {
+
+               codigoCurso = rs.getInt("Codigo_Curso");
+               fechaInicioCurso = rs.getDate("Fecha_Inicio");               
+               fechaInicioCurso = rs.getDate("Fecha_Fin");              
+               
+               break;
+            }
+
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+
+        }        
+                sql = "SELECT Pagado FROM acadamel.matriculas WHERE Codigo_Curso = " + codigoCurso + " AND Codigo_Alumno = " + codigoAlumno + ";";
+
+        try {
+            ResultSet rs = miConexion2.executeSelect(sql);
+
+            
+            while (rs.next()) {
+
+               pagado = rs.getInt("Pagado");        
+               
+               break;
+            }
+
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+
+        }
+        miConexion2.closeConnection();
+
+        
+        if (ahoraDate.before(fechaInicioCurso) && pagado != 1) {
+            
+            System.out.println("hkjdsgjkhdsfkjhgfds");
+        }
+        
+        
+        
+        
+        //**********************************************************************
+        
+        
+            SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date1 = dateformat3.parse("17/07/1989");
+        } catch (ParseException ex) {
+            Logger.getLogger(matricularAlumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         //*** *** *** *** *** *** ***
         
-        String cursoSeleccionado = lstCursos.getSelectedValue();
+        
         
         DefaultListModel model = (DefaultListModel) lstCursos.getModel();
         
         DefaultListModel model2 = (DefaultListModel) lstCursosMatri.getModel();
         
-        int selectedIndex = lstCursos.getSelectedIndex();
+        int selectedIndex = lstCursosMatri.getSelectedIndex();
         
         if (selectedIndex != -1) {
-        model.remove(selectedIndex);        
+        model2.remove(selectedIndex);        
         
-        model2.addElement(cursoSeleccionado);//lo pasamos a la lista2
+        model.addElement(cursoSeleccionado);//lo pasamos a la lista2
         
-        cursosAmatricular.add(cursoSeleccionado);//lo almacenamos para mandarlo a la consulta cuando guardemos cambios
+        
+            if (cursosAmatricular.contains(cursoSeleccionado)) {
+                cursosAmatricular.remove(cursoSeleccionado);//lo quitamos para no mandarlo a la consulta cuando guardemos cambios
+            }
+        
+        
+        
         
         }
 
@@ -405,6 +492,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> lstCursos;
