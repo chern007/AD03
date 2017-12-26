@@ -75,13 +75,13 @@ public class myConnection {
 
         stmt.executeUpdate(query);
 
-        //cerramos el statement
-        try {
-            if (stmt != null) {
-                conn.close();
-            }
-        } catch (SQLException se) {
-        }// do nothing
+//        //cerramos el statement
+//        try {
+//            if (stmt != null) {
+//                conn.close();
+//            }
+//        } catch (SQLException se) {
+//        }// do nothing
 
 //        try {
 //

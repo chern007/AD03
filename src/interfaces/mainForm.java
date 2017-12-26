@@ -5,6 +5,8 @@
  */
 package interfaces;
 
+import ad03.myConnection;
+
 /**
  *
  * @author chern007
@@ -16,6 +18,30 @@ public class mainForm extends javax.swing.JFrame {
      */
     public mainForm() {
         initComponents();
+
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>  
+
     }
 
     /**
@@ -41,21 +67,52 @@ public class mainForm extends javax.swing.JFrame {
         btEliminarTablas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("BBDD Acadamel");
 
         jLabel1.setFont(new java.awt.Font("Meiryo", 1, 14)); // NOI18N
-        jLabel1.setText("AdministraciÃ³n de BBDD \"Acadamel\"");
+        jLabel1.setText("Administración de BBDD \"Acadamel\"");
 
         btCrearTablaCursos.setText("Crear tabla Cursos");
+        btCrearTablaCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearTablaCursosActionPerformed(evt);
+            }
+        });
 
         btCrearTablaAlumnos.setText("Crear tabla Alumnos");
+        btCrearTablaAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearTablaAlumnosActionPerformed(evt);
+            }
+        });
 
         btCrearTablaMatriculas.setText("Crear tabla Matriculas");
+        btCrearTablaMatriculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearTablaMatriculasActionPerformed(evt);
+            }
+        });
 
         btInsertarAlumno.setText("Insertar Alumno");
+        btInsertarAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertarAlumnoActionPerformed(evt);
+            }
+        });
 
         btInsertarCurso.setText("Insertar Curso");
+        btInsertarCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertarCursoActionPerformed(evt);
+            }
+        });
 
         btMatricularAlumnoEnCurso.setText("Matricular Alumno en curso");
+        btMatricularAlumnoEnCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMatricularAlumnoEnCursoActionPerformed(evt);
+            }
+        });
 
         btPagarCursos.setText("Pagar Cursos");
 
@@ -66,6 +123,11 @@ public class mainForm extends javax.swing.JFrame {
         btCursosPorFecha.setText("Cursos por fecha comienzo");
 
         btEliminarTablas.setText("Eliminar Tablas");
+        btEliminarTablas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarTablasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,18 +147,18 @@ public class mainForm extends javax.swing.JFrame {
                     .addComponent(btInsertarAlumno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btCrearTablaMatriculas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btCrearTablaCursos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(64, 64, 64))
+                .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addComponent(btCrearTablaAlumnos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btCrearTablaCursos)
@@ -118,46 +180,167 @@ public class mainForm extends javax.swing.JFrame {
                 .addComponent(btCursosPorFecha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btEliminarTablas)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btCrearTablaAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTablaAlumnosActionPerformed
+
+//**********************************************************************
+        myConnection miConexion = new myConnection();
+
+        String sql
+                = "CREATE TABLE Alumnos ("
+                + "Codigo_Alumno int NOT NULL AUTO_INCREMENT,"
+                + "Nombre_Alumno varchar(255),"
+                + "NIF varchar(255) UNIQUE,"
+                + "Telefono int(9),"
+                + "Correo_electronico varchar(255),"
+                + "PRIMARY KEY (Codigo_Alumno)"
+                + ");";
+
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
         }
-        //</editor-fold>
+        //**********************************************************************
+
+        miConexion.closeConnection();
+    }//GEN-LAST:event_btCrearTablaAlumnosActionPerformed
+
+    private void btCrearTablaCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTablaCursosActionPerformed
+
+        myConnection miConexion = new myConnection();
+
+        //**********************************************************************
+        String sql
+                = "CREATE TABLE Cursos ("
+                + "Codigo_Curso int NOT NULL AUTO_INCREMENT,"
+                + "Nombre_Curso varchar(255),"
+                + "Titulo varchar(255),"
+                + "Descripcion varchar(255),"
+                + "Precio int,"
+                + "Fecha_Inicio TIMESTAMP,"
+                + "Fecha_Fin TIMESTAMP,"
+                + "PRIMARY KEY (Codigo_Curso)"
+                + ");";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+
+        miConexion.closeConnection();
+
+
+    }//GEN-LAST:event_btCrearTablaCursosActionPerformed
+
+    private void btCrearTablaMatriculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTablaMatriculasActionPerformed
+
+        myConnection miConexion = new myConnection();
+        //**********************************************************************
+        String sql
+                = "CREATE TABLE Matriculas ("
+                + "Codigo_Curso int NOT NULL,"
+                + "Codigo_Alumno int NOT NULL,"
+                + "Fecha_Inscripcion TIMESTAMP,"
+                + "Pagado  TINYINT(1),"
+                + "Fecha_Pago TIMESTAMP,"
+                + "PRIMARY KEY (Codigo_Curso,Codigo_Alumno)"
+                + ");";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+        miConexion.closeConnection();
+
+
+    }//GEN-LAST:event_btCrearTablaMatriculasActionPerformed
+
+    private void btEliminarTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarTablasActionPerformed
+
+        myConnection miConexion = new myConnection();
+
+        //**********************************************************************
+        String sql
+                = "DROP TABLE acadamel.alumnos;";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+
+        //**********************************************************************
+        sql
+                = "DROP TABLE acadamel.cursos;";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+
+        //**********************************************************************
+        sql
+                = "DROP TABLE acadamel.matriculas;";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+
+        miConexion.closeConnection();
+    }//GEN-LAST:event_btEliminarTablasActionPerformed
+
+    private void btInsertarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarAlumnoActionPerformed
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainForm().setVisible(true);
+                new insertarAlumno().setVisible(true);
             }
         });
-    }
+    }//GEN-LAST:event_btInsertarAlumnoActionPerformed
+
+    private void btInsertarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarCursoActionPerformed
+        
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new insertarCurso().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btInsertarCursoActionPerformed
+
+    private void btMatricularAlumnoEnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMatricularAlumnoEnCursoActionPerformed
+        
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new matricularAlumnos().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btMatricularAlumnoEnCursoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCrearTablaAlumnos;
