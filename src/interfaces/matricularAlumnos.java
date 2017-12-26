@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
  * @author Carlos
  */
 public class matricularAlumnos extends javax.swing.JFrame {
-    
+
     ArrayList<String> cursosAmatricular = new ArrayList<String>();
     int codigoAlumno;
 
@@ -202,8 +202,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
         Alumno alumno1 = obtenerDatosAlumno(NIF);
         cursosAmatricular.clear();//reseteamos la lista de nuevas matriculaciones
         codigoAlumno = alumno1.codAlumno;//fijamos el codigo de alumno del alumno elegido       
-        
-        
+
         //rellenamos el nombre del alumno seleccionado
         txtInfoNombre.setText(alumno1.Nombre);
 
@@ -214,8 +213,8 @@ public class matricularAlumnos extends javax.swing.JFrame {
             model2.addElement(alumno1.cursosMatriculados.get(i));
         }
 
-        lstCursosMatri.setModel(model2);        
-        
+        lstCursosMatri.setModel(model2);
+
         //rellenamos la lista de los cursos a matricular, con los cursos que le quedan por matricularse
         ArrayList<String> TOTALcursos = todosCursos();
 
@@ -235,41 +234,40 @@ public class matricularAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_cbAlumnoActionPerformed
 
     private void btMatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMatricularActionPerformed
-        
+
         String cursoSeleccionado = lstCursos.getSelectedValue();
-        
+
         DefaultListModel model = (DefaultListModel) lstCursos.getModel();
-        
+
         DefaultListModel model2 = (DefaultListModel) lstCursosMatri.getModel();
-        
+
         int selectedIndex = lstCursos.getSelectedIndex();
-        
+
         if (selectedIndex != -1) {
-        model.remove(selectedIndex);        
-        
-        model2.addElement(cursoSeleccionado);//lo pasamos a la lista2
-        
-        cursosAmatricular.add(cursoSeleccionado);//lo almacenamos para mandarlo a la consulta cuando guardemos cambios
-        
+            model.remove(selectedIndex);
+
+            model2.addElement(cursoSeleccionado);//lo pasamos a la lista2
+
+            cursosAmatricular.add(cursoSeleccionado);//lo almacenamos para mandarlo a la consulta cuando guardemos cambios
+
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btMatricularActionPerformed
 
     private void btDesmatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesmatricularActionPerformed
-        
+
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date ahoraDate = new Date();
         System.out.println(dateFormat.format(ahoraDate)); //2016/11/16 12:08:43
 
         String cursoSeleccionado = lstCursosMatri.getSelectedValue();
-        
+
         int codigoCurso = -1;
         Date fechaInicioCurso = null;
         Date fechaFinCurso = null;
         int pagado = -1;
-        
+
         //**********************************************************************
         myConnection miConexion2 = new myConnection();
 
@@ -278,32 +276,30 @@ public class matricularAlumnos extends javax.swing.JFrame {
         try {
             ResultSet rs = miConexion2.executeSelect(sql);
 
-            
             while (rs.next()) {
 
-               codigoCurso = rs.getInt("Codigo_Curso");
-               fechaInicioCurso = rs.getDate("Fecha_Inicio");               
-               fechaInicioCurso = rs.getDate("Fecha_Fin");              
-               
-               break;
+                codigoCurso = rs.getInt("Codigo_Curso");
+                fechaInicioCurso = rs.getDate("Fecha_Inicio");
+                fechaInicioCurso = rs.getDate("Fecha_Fin");
+
+                break;
             }
 
         } catch (Exception e) {
 
             System.err.println(e.getMessage());
 
-        }        
-                sql = "SELECT Pagado FROM acadamel.matriculas WHERE Codigo_Curso = " + codigoCurso + " AND Codigo_Alumno = " + codigoAlumno + ";";
+        }
+        sql = "SELECT Pagado FROM acadamel.matriculas WHERE Codigo_Curso = " + codigoCurso + " AND Codigo_Alumno = " + codigoAlumno + ";";
 
         try {
             ResultSet rs = miConexion2.executeSelect(sql);
 
-            
             while (rs.next()) {
 
-               pagado = rs.getInt("Pagado");        
-               
-               break;
+                pagado = rs.getInt("Pagado");
+
+                break;
             }
 
         } catch (Exception e) {
@@ -313,50 +309,38 @@ public class matricularAlumnos extends javax.swing.JFrame {
         }
         miConexion2.closeConnection();
 
-        
         if (ahoraDate.before(fechaInicioCurso) && pagado != 1) {
-            
-            System.out.println("hkjdsgjkhdsfkjhgfds");
-        }
-        
-        
-        
-        
-        //**********************************************************************
-        
-        
-            SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date date1 = dateformat3.parse("17/07/1989");
-        } catch (ParseException ex) {
-            Logger.getLogger(matricularAlumnos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //*** *** *** *** *** *** ***
-        
-        
-        
-        DefaultListModel model = (DefaultListModel) lstCursos.getModel();
-        
-        DefaultListModel model2 = (DefaultListModel) lstCursosMatri.getModel();
-        
-        int selectedIndex = lstCursosMatri.getSelectedIndex();
-        
-        if (selectedIndex != -1) {
-        model2.remove(selectedIndex);        
-        
-        model.addElement(cursoSeleccionado);//lo pasamos a la lista2
-        
-        
-            if (cursosAmatricular.contains(cursoSeleccionado)) {
-                cursosAmatricular.remove(cursoSeleccionado);//lo quitamos para no mandarlo a la consulta cuando guardemos cambios
+
+            DefaultListModel model = (DefaultListModel) lstCursos.getModel();
+
+            DefaultListModel model2 = (DefaultListModel) lstCursosMatri.getModel();
+
+            int selectedIndex = lstCursosMatri.getSelectedIndex();
+
+            if (selectedIndex != -1) {
+                model2.remove(selectedIndex);
+
+                model.addElement(cursoSeleccionado);//lo pasamos a la lista2
+
+                if (cursosAmatricular.contains(cursoSeleccionado)) {
+                    cursosAmatricular.remove(cursoSeleccionado);//lo quitamos para no mandarlo a la consulta cuando guardemos cambios
+                }else{
+                    
+                 ***   
+                    
+                }
+
             }
-        
-        
-        
-        
         }
 
+        //**********************************************************************
+//        SimpleDateFormat dateformat3 = new SimpleDateFormat("dd/MM/yyyy");
+//        try {
+//            Date date1 = dateformat3.parse("17/07/1989");
+//        } catch (ParseException ex) {
+//            Logger.getLogger(matricularAlumnos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        //*** *** *** *** *** *** ***
 
     }//GEN-LAST:event_btDesmatricularActionPerformed
 

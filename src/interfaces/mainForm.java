@@ -251,7 +251,7 @@ public class mainForm extends javax.swing.JFrame {
                 + "Codigo_Curso int NOT NULL,"
                 + "Codigo_Alumno int NOT NULL,"
                 + "Fecha_Inscripcion TIMESTAMP,"
-                + "Pagado  TINYINT(1),"
+                + "Pagado  TINYINT(1) DEFAULT 0,"
                 + "Fecha_Pago TIMESTAMP,"
                 + "PRIMARY KEY (Codigo_Curso,Codigo_Alumno)"
                 + ");";
