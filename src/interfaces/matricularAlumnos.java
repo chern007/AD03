@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 public class matricularAlumnos extends javax.swing.JFrame {
 
     ArrayList<String> cursosAmatricular = new ArrayList<String>();
+    ArrayList<String> cursosAdesMatricular = new ArrayList<String>();
     int codigoAlumno;
 
     /**
@@ -92,7 +93,12 @@ public class matricularAlumnos extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(lstCursosMatri);
 
-        btGuardarMatriculas.setText("Guardar Matrículas");
+        btGuardarMatriculas.setText("Guardar Cambios");
+        btGuardarMatriculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarMatriculasActionPerformed(evt);
+            }
+        });
 
         btMatricular.setText("Matricular >>>");
         btMatricular.addActionListener(new java.awt.event.ActionListener() {
@@ -131,34 +137,34 @@ public class matricularAlumnos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(btGuardarMatriculas, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtInfoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(cbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtInfoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btDesmatricular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btMatricular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btDesmatricular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btMatricular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btGuardarMatriculas, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -178,18 +184,14 @@ public class matricularAlumnos extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                        .addComponent(btGuardarMatriculas)
-                        .addGap(100, 100, 100))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btDesmatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btMatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btDesmatricular, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(btGuardarMatriculas, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -326,11 +328,16 @@ public class matricularAlumnos extends javax.swing.JFrame {
                     cursosAmatricular.remove(cursoSeleccionado);//lo quitamos para no mandarlo a la consulta cuando guardemos cambios
                 }else{
                     
-                 ***   
+                 cursosAdesMatricular.add(cursoSeleccionado);
                     
                 }
 
             }
+        }else{
+            
+            JOptionPane.showMessageDialog(rootPane, "No puede desmatricularse del curso " + cursoSeleccionado + " porque ya ha empezado o está pagado.");
+            
+            
         }
 
         //**********************************************************************
@@ -343,6 +350,51 @@ public class matricularAlumnos extends javax.swing.JFrame {
         //*** *** *** *** *** *** ***
 
     }//GEN-LAST:event_btDesmatricularActionPerformed
+
+    private void btGuardarMatriculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarMatriculasActionPerformed
+        
+        myConnection miConexion = new myConnection();
+        
+        if(cursosAmatricular.size() != 0)
+        for (String nombreCurso : cursosAmatricular) {
+        
+        //**********************************************************************
+        String sql = "INSERT INTO acadamel.matriculas ( Codigo_Curso, Codigo_Alumno, Fecha_Inscripcion) VALUES ( (SELECT Codigo_Curso FROM acadamel.cursos Where Nombre_Curso = '" + nombreCurso + "' ) ,"+ codigoAlumno +", CURDATE());";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+            
+        }
+        
+        if(cursosAdesMatricular.size() != 0)
+        for (String nombreCurso : cursosAdesMatricular) {
+        
+        //**********************************************************************
+        String sql = "DELETE FROM acadamel.matriculas WHERE Codigo_Curso = (SELECT Codigo_Curso FROM acadamel.cursos Where Nombre_Curso = '" + nombreCurso + "' ) AND Codigo_Alumno = "+ codigoAlumno +";";
+
+        try {
+            miConexion.executeUpdate(sql);
+        } catch (Exception e) {
+
+            System.err.println(e.getMessage());
+        }
+        //**********************************************************************
+            
+        }
+
+        miConexion.closeConnection();
+        
+        JOptionPane.showMessageDialog(rootPane, "Se han guardado los cambios en las matriculaciones del alumno " + cbAlumno.getSelectedItem().toString());
+        
+        //vaciamos los cursos a matricular y a desmatricular        
+        cursosAmatricular.clear();
+        cursosAdesMatricular.clear();
+    }//GEN-LAST:event_btGuardarMatriculasActionPerformed
 
     private ArrayList<String> obtenerAlumnos() {
 
