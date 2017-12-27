@@ -115,6 +115,11 @@ public class mainForm extends javax.swing.JFrame {
         });
 
         btPagarCursos.setText("Pagar Cursos");
+        btPagarCursos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPagarCursosActionPerformed(evt);
+            }
+        });
 
         btRecuperarDatosAlumno.setText("Recuperar datos Alumno");
 
@@ -322,7 +327,7 @@ public class mainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btInsertarAlumnoActionPerformed
 
     private void btInsertarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarCursoActionPerformed
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -332,7 +337,7 @@ public class mainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btInsertarCursoActionPerformed
 
     private void btMatricularAlumnoEnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMatricularAlumnoEnCursoActionPerformed
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -340,6 +345,15 @@ public class mainForm extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btMatricularAlumnoEnCursoActionPerformed
+
+    private void btPagarCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPagarCursosActionPerformed
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new pagarCursos().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btPagarCursosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

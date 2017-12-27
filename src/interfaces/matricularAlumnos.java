@@ -89,8 +89,10 @@ public class matricularAlumnos extends javax.swing.JFrame {
         txtInfoNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Matriculaciones - Alumno");
 
+        lstCursosMatri.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(lstCursosMatri);
 
         btGuardarMatriculas.setText("Guardar Cambios");
@@ -107,6 +109,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
             }
         });
 
+        lstCursos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(lstCursos);
 
         cbAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +118,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Alumno");
+        jLabel1.setText("NIF Alumno");
 
         jLabel2.setText("Cursos disponibles");
 
@@ -201,6 +204,9 @@ public class matricularAlumnos extends javax.swing.JFrame {
 
         //cargamos los datos del usuario que elijamos en el combobox
         String NIF = this.cbAlumno.getSelectedItem().toString();
+        
+        if (!NIF.equals("")) {
+        
         Alumno alumno1 = obtenerDatosAlumno(NIF);
         cursosAmatricular.clear();//reseteamos la lista de nuevas matriculaciones
         codigoAlumno = alumno1.codAlumno;//fijamos el codigo de alumno del alumno elegido       
@@ -232,6 +238,17 @@ public class matricularAlumnos extends javax.swing.JFrame {
         }
 
         lstCursos.setModel(model1);
+        
+        }else{
+            
+            txtInfoNombre.setText("");
+            DefaultListModel aux = (DefaultListModel) lstCursos.getModel();
+            DefaultListModel aux2 = (DefaultListModel) lstCursosMatri.getModel();
+            aux.removeAllElements();
+            aux2.removeAllElements();
+            
+            
+        }
 
     }//GEN-LAST:event_cbAlumnoActionPerformed
 
@@ -399,7 +416,7 @@ public class matricularAlumnos extends javax.swing.JFrame {
     private ArrayList<String> obtenerAlumnos() {
 
         ArrayList<String> alumnos = new ArrayList<String>();
-
+        alumnos.add("");
         //**********************************************************************
         myConnection miConexion = new myConnection();
 

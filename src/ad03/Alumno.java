@@ -17,6 +17,7 @@ public class Alumno {
    public int codAlumno;
    public String Nombre;
    public ArrayList<String> cursosMatriculados;
+   public ArrayList<String> cursosApagar;
 
     public Alumno(String NIF) {
         this.NIF = NIF;
