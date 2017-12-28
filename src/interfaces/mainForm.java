@@ -122,6 +122,11 @@ public class mainForm extends javax.swing.JFrame {
         });
 
         btRecuperarDatosAlumno.setText("Recuperar datos Alumno");
+        btRecuperarDatosAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRecuperarDatosAlumnoActionPerformed(evt);
+            }
+        });
 
         btPendienteCobro.setText("Importe pendiente de cobro");
 
@@ -354,6 +359,16 @@ public class mainForm extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_btPagarCursosActionPerformed
+
+    private void btRecuperarDatosAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRecuperarDatosAlumnoActionPerformed
+           /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new verDatosAlumnos().setVisible(true);
+            }
+        });        
+        
+    }//GEN-LAST:event_btRecuperarDatosAlumnoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
