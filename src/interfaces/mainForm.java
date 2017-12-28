@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+Carlos Hernández Crespo
+DB user: root
+DB password: elearning
  */
 package interfaces;
 
@@ -225,13 +225,24 @@ public class mainForm extends javax.swing.JFrame {
 
         try {
             miConexion.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(rootPane, "Se ha creado la tabla \"alumnos\" en la BBDD.");
+
         } catch (Exception e) {
 
             System.err.println(e.getMessage());
+
+            if (e.getMessage().contains("already exists")) {
+
+                JOptionPane.showMessageDialog(rootPane, "Ya existe la tabla \"alumnos\" en la BBDD.");
+            }
+
         }
         //**********************************************************************
 
         miConexion.closeConnection();
+
+
     }//GEN-LAST:event_btCrearTablaAlumnosActionPerformed
 
     private void btCrearTablaCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearTablaCursosActionPerformed
@@ -253,9 +264,16 @@ public class mainForm extends javax.swing.JFrame {
 
         try {
             miConexion.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(rootPane, "Se ha creado la tabla \"cursos\" en la BBDD.");
         } catch (Exception e) {
 
             System.err.println(e.getMessage());
+
+            if (e.getMessage().contains("already exists")) {
+
+                JOptionPane.showMessageDialog(rootPane, "Ya existe la tabla \"cursos\" en la BBDD.");
+            }
         }
         //**********************************************************************
 
@@ -280,9 +298,17 @@ public class mainForm extends javax.swing.JFrame {
 
         try {
             miConexion.executeUpdate(sql);
+
+            JOptionPane.showMessageDialog(rootPane, "Se ha creado la tabla \"matriculas\" en la BBDD.");
+
         } catch (Exception e) {
 
             System.err.println(e.getMessage());
+
+            if (e.getMessage().contains("already exists")) {
+
+                JOptionPane.showMessageDialog(rootPane, "Ya existe la tabla \"matriculas\" en la BBDD.");
+            }
         }
         //**********************************************************************
         miConexion.closeConnection();
@@ -292,52 +318,53 @@ public class mainForm extends javax.swing.JFrame {
 
     private void btEliminarTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarTablasActionPerformed
 
-                
         int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de querer borrar todas las tablas?", "Confirmar el borrado", JOptionPane.YES_NO_OPTION);
-        
-        if(respuesta== 0){
-            
-        myConnection miConexion = new myConnection();
 
-        //**********************************************************************
-        String sql
-                = "DROP TABLE acadamel.alumnos;";
+        if (respuesta == 0) {
 
-        try {
-            miConexion.executeUpdate(sql);
-        } catch (Exception e) {
+            myConnection miConexion = new myConnection();
 
-            System.err.println(e.getMessage());
+            //**********************************************************************
+            String sql
+                    = "DROP TABLE acadamel.alumnos;";
+
+            try {
+                miConexion.executeUpdate(sql);
+            } catch (Exception e) {
+
+                System.err.println(e.getMessage());
+            }
+            //**********************************************************************
+
+            //**********************************************************************
+            sql
+                    = "DROP TABLE acadamel.cursos;";
+
+            try {
+                miConexion.executeUpdate(sql);
+            } catch (Exception e) {
+
+                System.err.println(e.getMessage());
+            }
+            //**********************************************************************
+
+            //**********************************************************************
+            sql
+                    = "DROP TABLE acadamel.matriculas;";
+
+            try {
+                miConexion.executeUpdate(sql);
+            } catch (Exception e) {
+
+                System.err.println(e.getMessage());
+            }
+            //**********************************************************************
+
+            miConexion.closeConnection();
+
         }
-        //**********************************************************************
 
-        //**********************************************************************
-        sql
-                = "DROP TABLE acadamel.cursos;";
-
-        try {
-            miConexion.executeUpdate(sql);
-        } catch (Exception e) {
-
-            System.err.println(e.getMessage());
-        }
-        //**********************************************************************
-
-        //**********************************************************************
-        sql
-                = "DROP TABLE acadamel.matriculas;";
-
-        try {
-            miConexion.executeUpdate(sql);
-        } catch (Exception e) {
-
-            System.err.println(e.getMessage());
-        }
-        //**********************************************************************
-
-        miConexion.closeConnection();
-        
-        }
+        JOptionPane.showMessageDialog(rootPane, "Se han eliminado todas las tablas de la BBDD.");
     }//GEN-LAST:event_btEliminarTablasActionPerformed
 
     private void btInsertarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarAlumnoActionPerformed
@@ -401,7 +428,7 @@ public class mainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btPendienteCobroActionPerformed
 
     private void btCursosPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCursosPorFechaActionPerformed
-                
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
