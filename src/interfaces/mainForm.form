@@ -157,11 +157,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Importe pendiente de cobro"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btPendienteCobroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btCursosPorFecha">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cursos por fecha comienzo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCursosPorFechaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btEliminarTablas">
       <Properties>

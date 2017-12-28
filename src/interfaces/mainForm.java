@@ -6,6 +6,7 @@
 package interfaces;
 
 import ad03.myConnection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,15 +33,16 @@ public class mainForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(verDatosAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(verDatosAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(verDatosAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(verDatosAlumnos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>  
+        //</editor-fold>
+        //</editor-fold>
 
     }
 
@@ -129,8 +131,18 @@ public class mainForm extends javax.swing.JFrame {
         });
 
         btPendienteCobro.setText("Importe pendiente de cobro");
+        btPendienteCobro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPendienteCobroActionPerformed(evt);
+            }
+        });
 
         btCursosPorFecha.setText("Cursos por fecha comienzo");
+        btCursosPorFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCursosPorFechaActionPerformed(evt);
+            }
+        });
 
         btEliminarTablas.setText("Eliminar Tablas");
         btEliminarTablas.addActionListener(new java.awt.event.ActionListener() {
@@ -280,6 +292,11 @@ public class mainForm extends javax.swing.JFrame {
 
     private void btEliminarTablasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarTablasActionPerformed
 
+                
+        int respuesta = JOptionPane.showConfirmDialog(rootPane, "¿Esta seguro de querer borrar todas las tablas?", "Confirmar el borrado", JOptionPane.YES_NO_OPTION);
+        
+        if(respuesta== 0){
+            
         myConnection miConexion = new myConnection();
 
         //**********************************************************************
@@ -319,6 +336,8 @@ public class mainForm extends javax.swing.JFrame {
         //**********************************************************************
 
         miConexion.closeConnection();
+        
+        }
     }//GEN-LAST:event_btEliminarTablasActionPerformed
 
     private void btInsertarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertarAlumnoActionPerformed
@@ -361,14 +380,35 @@ public class mainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btPagarCursosActionPerformed
 
     private void btRecuperarDatosAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRecuperarDatosAlumnoActionPerformed
-           /* Create and display the form */
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new verDatosAlumnos().setVisible(true);
             }
-        });        
-        
+        });
+
     }//GEN-LAST:event_btRecuperarDatosAlumnoActionPerformed
+
+    private void btPendienteCobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPendienteCobroActionPerformed
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new alumnosPendientesDePago().setVisible(true);
+            }
+        });
+
+    }//GEN-LAST:event_btPendienteCobroActionPerformed
+
+    private void btCursosPorFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCursosPorFechaActionPerformed
+                
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new consultaCursosFechas().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_btCursosPorFechaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
