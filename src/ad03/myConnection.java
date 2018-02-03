@@ -45,6 +45,8 @@ public class myConnection {
 
     public void closeConnection() {
 
+        try { if (stmt != null) stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+        
         try {
             if (conn != null) {
                 conn.close();
